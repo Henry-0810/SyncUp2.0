@@ -1,0 +1,30 @@
+<div class="container d-flex flex-column-reverse flex-md-row align-items-center gap-3">
+    <div class="container" style="flex: 4;">
+        <div class="event-list">
+            <div class="card text-white bg-primary m-3" style="max-width: 100%;">
+                <div class="card-header">Your Events</div>
+                <div class="card-body">
+                    <ol>
+                        <!-- <li *ngFor="let event of events">{{ event.title }} - {{ event.start.substring(0, 10) }}</li> -->
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="friend-list">
+            <div class="card text-white bg-primary m-3" style="max-width: 100%;">
+                <div class="card-header">Your Friends</div>
+                <div class="card-body">
+                    <ol>
+                        <!-- <li *ngFor="let friend of friends">{{ friend.first_name }} {{ friend.last_name }}</li> -->
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card text-white bg-primary m-3" style="max-width: 100%; flex: 9;">
+        <div class="card-header">Your Calendar</div>
+        <div class="card-body">
+            <full-calendar [options]="calendarOptions" #fullcalendar></full-calendar>
+        </div>
+    </div>
+</div>
