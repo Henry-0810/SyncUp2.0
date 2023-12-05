@@ -1,0 +1,33 @@
+body {
+    background-image: url('../background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.fc table a{
+    color: azure;
+    text-decoration: none;
+}
+
+.fc .fc-button-primary{
+    background-color: #c6c8ca;
+    color: #272121;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .col-md-6.col-sm-12 {
+        min-height: auto;
+        /* Remove minimum height for smaller screens */
+    }
+
+    .fc-header-toolbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 5px;
+    }
+}
+

@@ -1,30 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Event } from './home/home.component';
+import { environment } from '../environments/environment';
+import { Event, Friend } from './home/home.component';
+import { en } from '@fullcalendar/core/internal-common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SyncUpDataService {
 
-  private apiBaseUrl = 'http://localhost:3000/api';
+  private apiBaseUrl = environment.apiUrl;
   public getEvents(): Promise <Event[]> {
-    const title: string = 'Meet up with friends';
-    const description: string = 'Meet up with friends at the park';
-    const start: string = '2023-12-04T09:00:00';
-    const end: string = '2021-12-04T10:00:00';
-    const url: string = `${this.apiBaseUrl}/events?title={title}&description={description}&start={start}&end={end}`;
+    const url: string = `${this.apiBaseUrl}/events?`;
     return this.http
       .get(url)
       .toPromise()
       .then(response => response as Event[])
       .catch(this.handleError);
   }
+
+  public getFriends(): Promise <Friend[]> {
+    const url: string = `${this.apiBaseUrl}/friends?`;
+    return this.http
+      .get(url)
+      .toPromise()
+      .then(response => response as Friend[])
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
       console.error('Something has gone wrong', error);
       return Promise.reject(error.message || error);
   }
-  constructor(private http: HttpClient) {
-    
-  }
+  constructor(private http: HttpClient) { }
 }

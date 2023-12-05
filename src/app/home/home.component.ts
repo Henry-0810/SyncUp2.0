@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -13,14 +13,42 @@ export interface Event {
   end: string;
 }
 
+export interface Friend {
+  first_name: string;
+  last_name: string;
+  birthday: string;
+  phone_number: number;
+  email: string;
+  close_friend: boolean;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   providers: [SyncUpDataService]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   constructor (private syncUpDataService: SyncUpDataService) {}
+
+  events: Event[] = [];
+  private getEvents(): void {
+    this.syncUpDataService.getEvents().then(events => {
+      this.events = events;
+      this.calendarOptions.events = this.events;
+    });
+  }
+
+  friends: Friend[] = [];
+  private getFriends(): void {
+    this.syncUpDataService.getFriends().then(friends => this.friends = friends);
+  }
+
+  ngOnInit(): void {
+    this.getEvents();
+    this.getFriends();
+  }
+
   calendarOptions: CalendarOptions = {
       initialView: 'dayGridMonth',
       plugins: [dayGridPlugin,timeGridPlugin,interactionPlugin],
@@ -38,16 +66,13 @@ export class HomeComponent {
         }
       },
       editable: true,
-      events: [
-        // Your event data here...
-      ],
-      // customize event style
+      events: [],
       eventTextColor: 'white',
       eventBackgroundColor: '#d6711e',
       eventBorderColor: '#d6711e',
       handleWindowResize: true
     };
-
+    
   @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
 
   ngAfterViewInit() {
