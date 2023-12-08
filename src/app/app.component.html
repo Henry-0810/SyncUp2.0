@@ -9,12 +9,12 @@
                 class="visually-hidden">(current)</span></a></li>
         </ul>
         <ul class="navbar-nav ms-auto d-flex align-items-center">
-          <ng-container *ngIf="!loggedIn">
-            <li class="nav-item"><a class="nav-link active" href="/login" (click)="setLoggedIn()">Login</a></li>
+          <ng-container *ngIf="!authService.loggedIn">
+            <li class="nav-item"><a class="nav-link active" routerLink="/login">Login</a></li>
           </ng-container>
-          <ng-container *ngIf="loggedIn">
-            <li class="nav-item"><a class="nav-link active" href="/logout" (click)="logout()">Logout</a></li>
-            <li class="nav-item">{{ currentUser.firstName }} {{ currentUser.lastName }}</li>
+          <ng-container *ngIf="authService.loggedIn">
+            <li class="nav-item"><a class="nav-link active" (click)="authService.logout()">Logout</a></li>
+            <li class="nav-item">{{ currentUser?.username }}</li>
           </ng-container>
         </ul>
       </div>

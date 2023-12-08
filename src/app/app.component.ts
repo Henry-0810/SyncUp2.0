@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, DoCheck } from '@angular/core';
 import { AuthenticationService } from './services/authentication.service';
 declare var $: any;
 
@@ -7,12 +7,12 @@ declare var $: any;
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit{
+export class AppComponent{
   title = 'Sync Up';
   currentUser: any;
   loggedIn: boolean = false;
   
-  constructor(private authService: AuthenticationService) {}
+  constructor(public authService: AuthenticationService) {}
 
   logout(): void {
     this.authService.logout();
@@ -21,11 +21,5 @@ export class AppComponent implements OnInit{
 
   setLoggedIn(): void {
     this.loggedIn = true;
-  }
-
-  ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe((user: any) => {
-      this.currentUser = user;
-    });
   }
 }

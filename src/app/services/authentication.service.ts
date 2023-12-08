@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs'
+import { BehaviorSubject, Observable, throwError } from 'rxjs'
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
@@ -9,31 +9,34 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  
   private apiBaseUrl = environment.apiUrl;
   // so user is saved
-  private currentUserSubject: BehaviorSubject<any>;
+  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public currentUser$: Observable<any> = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<any>(null);
   }
+  loggedIn: boolean = false;
 
   login(credentials: { username: string, password: string }): Observable<any> {
     return this.http.post(`${this.apiBaseUrl}/users/login`, credentials, {observe: 'response'})
     .pipe(
         tap((response) => {
           if (response.status === 200) {
-            this.router.navigate(['/home']);
-          } else {
+            this.router.navigate(['/homepage']);
+            this.loggedIn = true;
+            this.setCurrentUser(response.body);
+            console.log(this.currentUserSubject);
+            console.log('Login successful');
+          } 
+          else if(response.status === 404){
+            console.log('User not found');
+          }
+          else {
             console.log('Login failed:', response.body);
           }
-        }),
-        catchError((error) => {
-          if (error.status === 404) {
-            console.log('User not found');
-          } else {
-            console.error('Login error:', error); 
-          }
-          return throwError(error); 
         })
       );
   }
@@ -46,6 +49,8 @@ export class AuthenticationService {
         return this.login({ username: credentials.username, password: credentials.password })
           .pipe(
             tap(() => {
+              this.loggedIn = true;
+              this.setCurrentUser(credentials);
               this.router.navigate(['/homepage']);
             })
           );
@@ -53,9 +58,27 @@ export class AuthenticationService {
     );
   }
 
-  logout(): void {
-    // Clear user data from storage and reset
+  logout(): Observable<any> {
+    console.log('Logout button clicked');
+    this.loggedIn = false;
     this.router.navigate(['/login']);
+    this.setCurrentUser(null);
+    return this.http.get(`${this.apiBaseUrl}/users/logout`).pipe(
+      tap(() => {
+        console.log('Logout successful');
+        this.router.navigate(['/login']);
+        this.loggedIn = false;
+      }),
+      catchError((error) => {
+        console.error('Logout error:', error);
+        if (error.status === 0) {
+          console.error('Network error occurred.');
+        } else {
+          console.error('Error occurred during logout:', error.message);
+        }
+        return throwError(error);
+      })
+    );
   }
 
   setCurrentUser(user: any): void {

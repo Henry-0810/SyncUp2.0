@@ -9,7 +9,7 @@ import { AuthenticationService } from '../services/authentication.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  
+
   constructor(private authService: AuthenticationService) {}
 
   login(): void {
