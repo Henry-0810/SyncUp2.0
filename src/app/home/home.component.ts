@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
-import { SyncUpDataService } from '../sync-up-data.service';
+import { SyncUpDataService } from '../services/sync-up-data.service';
 
 export interface Event {
   title: string;
@@ -42,6 +42,12 @@ export class HomeComponent implements OnInit{
   friends: Friend[] = [];
   private getFriends(): void {
     this.syncUpDataService.getFriends().then(friends => this.friends = friends);
+  }
+
+  getInitials(firstName: string, lastName: string): string {
+    const firstInitial = firstName.charAt(0).toUpperCase();
+    const lastInitial = lastName.charAt(0).toUpperCase();
+    return `${firstInitial}${lastInitial}`;
   }
 
   ngOnInit(): void {

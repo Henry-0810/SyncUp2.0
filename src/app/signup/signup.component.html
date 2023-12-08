@@ -5,50 +5,51 @@
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                        <form>
+                        <form (ngSubmit)="register()">
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline"><input class="form-control form-control-lg" id="firstName"
-                                            type="text" /><label class="form-label" for="firstName">First Name</label>
+                                            type="text" [(ngModel)]="first_name" name="first_name" /><label class="form-label" for="firstName">First Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline"><input class="form-control form-control-lg" id="lastName"
-                                            type="text" /><label class="form-label" for="lastName">Last Name</label>
+                                            type="text" [(ngModel)]="last_name" name="last_name"/><label class="form-label" for="lastName">Last Name</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-4 d-flex align-items-center">
-                                    <div class="form-outline datepicker w-100"><input
-                                            class="form-control form-control-lg" id="birthdayDate" type="date" /><label
-                                            class="form-label" for="birthdayDate">Date of Birth</label></div>
+                                    <div class="form-outline datepicker w-100">
+                                        <input class="form-control form-control-lg" id="birthdayDate" type="date" name="birthday" [(ngModel)]="birthday"/>
+                                        <label class="form-label" for="birthdayDate">Date of Birth</label>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <h6 class="mb-2 pb-1">Gender: </h6>
                                     <div class="form-check form-check-inline"><input class="form-check-input"
-                                            id="femaleGender" type="radio" name="inlineRadioOptions" value="option1"
-                                            checked="" /><label class="form-check-label"
+                                            id="femaleGender" type="radio" name="gender" value="female"
+                                            checked="" [(ngModel)]="gender" /><label class="form-check-label"
                                             for="femaleGender">Female</label></div>
                                     <div class="form-check form-check-inline"><input class="form-check-input"
-                                            id="maleGender" type="radio" name="inlineRadioOptions"
-                                            value="option2" /><label class="form-check-label"
+                                            id="maleGender" type="radio" name="gender"
+                                            value="male" [(ngModel)]="gender" /><label class="form-check-label"
                                             for="maleGender">Male</label></div>
                                     <div class="form-check form-check-inline"><input class="form-check-input"
-                                            id="otherGender" type="radio" name="inlineRadioOptions"
-                                            value="option3" /><label class="form-check-label"
+                                            id="otherGender" type="radio" name="gender"
+                                            value="other" [(ngModel)]="gender" /><label class="form-check-label"
                                             for="otherGender">Other</label></div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-4 pb-2">
                                     <div class="form-outline"><input class="form-control form-control-lg"
-                                            id="emailAddress" type="email" /><label class="form-label"
-                                            for="emailAddress">Email</label></div>
+                                            id="username" name="username" type="text" [(ngModel)]="username"/><label class="form-label"
+                                            for="username">Username</label></div>
                                 </div>
                                 <div class="col-md-6 mb-4 pb-2">
                                     <div class="form-outline"><input class="form-control form-control-lg" id="password"
-                                            type="password" /><label class="form-label" for="password">Password</label>
+                                            type="password" name="password" [(ngModel)]="password"/><label class="form-label" for="password">Password</label>
                                     </div>
                                 </div>
                             </div>

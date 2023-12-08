@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
-import { Event, Friend } from './home/home.component';
+import { environment } from '../../environments/environment';
+import { Event, Friend } from '../home/home.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SyncUpDataService {
 
-  // private apiBaseUrl = environment.apiUrl;
-  private apiBaseUrl = 'https://sync-up.onrender.com/api';
+  private apiBaseUrl = environment.apiUrl;
+  // private apiBaseUrl = 'https://sync-up.onrender.com/api';
   public getEvents(): Promise <Event[]> {
     const url: string = `${this.apiBaseUrl}/events?`;
     return this.http

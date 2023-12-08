@@ -1,9 +1,13 @@
 body {
-    background-image: url('../background.png');
+    /* Gradient from darker to lighter shades */
+    background: linear-gradient(to bottom, #011d18 0%, #062307 15%, #05422a 30%, #0d5a4a 55%, #489d85 100%);
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    position: relative;
+    overflow-x: hidden;
+    z-index: -2;
 }
 
 .fc table a{

@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FullCalendarModule } from '@fullcalendar/angular';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpHeaders, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
@@ -26,7 +28,8 @@ const routes: Routes = [
     BrowserModule,
     FullCalendarModule,
     RouterModule.forRoot(routes), 
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
