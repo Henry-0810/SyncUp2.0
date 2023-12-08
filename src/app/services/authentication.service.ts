@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class AuthenticationService {
   
-  private apiBaseUrl = environment.apiUrl;
+  // private apiBaseUrl = environment.apiUrl;
+  private apiBaseUrl = 'https://sync-up.onrender.com/api';
+
   // so user is saved
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public currentUser$: Observable<any> = this.currentUserSubject.asObservable();
